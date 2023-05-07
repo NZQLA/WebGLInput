@@ -100,6 +100,15 @@ namespace WebGLSupport
 #endif
     }
 
+    /// <summary>
+    /// create a input  by webgl ,and sync it with the unity input real time!<br/>
+    /// todo:<br/>
+    /// <list type="bullet">Support commonly used KeyCodes:[Home]/[End]/[←]/[→]</list>
+    /// <list type="bullet">Ensure no  bug when the application is set to  full screen mode!</list>
+    /// <b>Usage:</b><br/>
+    /// <list type="number0">1. Add <see cref="WebGLInput"/> to the Unity InputField's GameObject</list>
+    /// <list type="number0">2. Invoke the <see cref="ClearSelfByInputNull"/> , after you clear the InputField's text(like input.text = "")</list>
+    /// </summary>
     public class WebGLInput : MonoBehaviour, IComparable<WebGLInput>
     {
         static Dictionary<int, WebGLInput> instances = new Dictionary<int, WebGLInput>();
@@ -150,6 +159,24 @@ namespace WebGLSupport
                 gameObject.AddComponent<WebGLInputMobile>();
             }
         }
+
+        /// <summary>
+        /// Clear the content input by user early<br/>
+        /// If  you want  clear by code instead of user, you should invoke this function after you clear the <see cref="InputField"/>.text!<br/>
+        /// Otherwise the next time , the inputField will show the content you have clear by code when user input any word except numbers!<br/>
+        /// </summary>
+        public void ClearSelfByInputNull()
+        {
+            if (instances.ContainsKey(id))
+            {
+                var inputSelf = instances[id];
+                if (inputSelf != null)
+                {
+                    WebGLInputPlugin.WebGLInputText(id, "");
+                }
+            }
+        }
+
 
         /// <summary>
         /// Get the element rect of input
