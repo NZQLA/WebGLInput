@@ -117,7 +117,7 @@ namespace WebGLSupport
         /// <summary>
         /// offset the input select panel of the input panel , ensure the input panel will't be occluded by the input select panel!
         /// </summary>
-        private float hightOffset = 30;
+        private int hightOffset = 30;
 
 #if WEBGLINPUT_TAB
         public bool enableTabText = false;
