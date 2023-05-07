@@ -74,7 +74,7 @@ namespace WebGLSupport
         public static extern void WebGLInputEnableTabText(int id, bool enable);
 #endif
 #else
-        public static void WebGLInputInit() {}
+        public static void WebGLInputInit() { }
         public static int WebGLInputCreate(string canvasId, int x, int y, int width, int height, int fontsize, string text, string placeholder, bool isMultiLine, bool isPassword, bool isHidden, bool isMobile) { return 0; }
         public static void WebGLInputEnterSubmit(int id, bool flag) { }
         public static void WebGLInputTab(int id, Action<int, int> cb) { }
@@ -113,6 +113,11 @@ namespace WebGLSupport
     {
         static Dictionary<int, WebGLInput> instances = new Dictionary<int, WebGLInput>();
         public static string CanvasId { get; set; }
+
+        /// <summary>
+        /// offset the input select panel of the input panel , ensure the input panel will't be occluded by the input select panel!
+        /// </summary>
+        private float hightOffset = 30;
 
 #if WEBGLINPUT_TAB
         public bool enableTabText = false;
@@ -179,6 +184,16 @@ namespace WebGLSupport
 
 
         /// <summary>
+        /// Set the Input Select Panel distance the input panel at vertical
+        /// </summary>
+        /// <param name="offsetVertical"></param>
+        public void SetInputSelectPanelOffsetVertical(float offsetVertical)
+        {
+            hightOffset = offsetVertical;
+        }
+
+
+        /// <summary>
         /// Get the element rect of input
         /// </summary>
         /// <returns></returns>
@@ -208,6 +223,8 @@ namespace WebGLSupport
             if (id != -1) throw new Exception("OnSelect : id != -1");
 
             var rect = GetElemetRect();
+            rect.y += hightOffset;
+
             bool isPassword = input.contentType == ContentType.Password;
 
             var fontSize = Mathf.Max(14, input.fontSize); // limit font size : 14 !!
@@ -381,7 +398,8 @@ namespace WebGLSupport
                 if (Application.isMobilePlatform)
                 {
                     return;
-                } else
+                }
+                else
                 {
                     OnSelect();
                 }
