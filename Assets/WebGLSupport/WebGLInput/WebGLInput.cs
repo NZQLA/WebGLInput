@@ -187,7 +187,7 @@ namespace WebGLSupport
         /// Set the Input Select Panel distance the input panel at vertical
         /// </summary>
         /// <param name="offsetVertical"></param>
-        public void SetInputSelectPanelOffsetVertical(float offsetVertical)
+        public void SetInputSelectPanelOffsetVertical(int offsetVertical)
         {
             hightOffset = offsetVertical;
         }
