@@ -159,24 +159,39 @@ var WebGLInput = {
 	},
 	WebGLInputMaxLength:function(id, maxlength){
         var input = instances[id];
-		input.maxLength = maxlength;
+		if(input!=null)
+		{
+			input.maxLength = maxlength;
+		}
 	},
 	WebGLInputText:function(id, text){
         var input = instances[id];
-		input.value = UTF8ToString(text);
+		if(input!=null)
+		{
+			input.value = UTF8ToString(text);
+		}
 	},
 	WebGLInputDelete:function(id){
         var input = instances[id];
-        input.parentNode.removeChild(input);
-        instances[id] = null;
+		if(input!=null)
+		{
+			input.parentNode.removeChild(input);
+			instances[id] = null;
+		}
     },
 	WebGLInputEnableTabText:function(id, enable) {
         var input = instances[id];
-		input.enableTabText = enable;
+		if(input!=null)
+		{
+			input.enableTabText = enable;
+		}
 	},
 	WebGLInputForceBlur:function(id) {
         var input = instances[id];
-		input.blur();
+		if(input!=null)
+		{
+			input.blur();
+		}
 	},
 }
 
